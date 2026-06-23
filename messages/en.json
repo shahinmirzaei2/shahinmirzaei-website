@@ -1,0 +1,122 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "articles": "Articles",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "hero": {
+    "tag": "Digital Transformation Architect",
+    "title": "I design digital transformation strategies — and make sure they actually happen.",
+    "subtitle": "25 years of experience — from writing code to running companies. For organizations tired of PowerPoint consultants.",
+    "ctaPrimary": "Free Consultation",
+    "ctaSecondary": "My Services"
+  },
+  "stats": {
+    "experience_number": "25+",
+    "experience_label": "Years Experience",
+    "projects_number": "50+",
+    "projects_label": "Projects Delivered",
+    "organizations_number": "10+",
+    "organizations_label": "Major Organizations"
+  },
+  "services": {
+    "title": "My Services",
+    "viewAll": "View All Services",
+    "items": {
+      "digitalStrategy": {
+        "title": "Digital Transformation Strategy",
+        "description": "Crafting digital transformation roadmaps tailored to your organization's maturity, business goals, and existing infrastructure."
+      },
+      "bpm": {
+        "title": "BPM & Process Re-engineering",
+        "description": "Analyzing, redesigning, and optimizing business processes to increase efficiency and reduce costs."
+      },
+      "aiStrategy": {
+        "title": "AI Strategy & Roadmap",
+        "description": "Designing AI roadmaps and identifying AI application opportunities within your organization."
+      },
+      "aiAutomation": {
+        "title": "AI-Powered Process Automation",
+        "description": "Leveraging AI tools to automate processes and improve organizational decision-making."
+      },
+      "digitalProduct": {
+        "title": "Digital Product & Service Design",
+        "description": "Designing and developing digital products from idea to execution with a user-centered approach."
+      },
+      "bi": {
+        "title": "Business Intelligence & Data Analytics",
+        "description": "Implementing BI systems and analytical dashboards for data-driven decision making."
+      },
+      "governance": {
+        "title": "Data Governance & AI Governance",
+        "description": "Developing data and AI governance frameworks for responsible and effective use."
+      },
+      "pmo": {
+        "title": "Project Management & PMO Advisory",
+        "description": "Establishing and improving project management offices and deploying PM methodologies."
+      },
+      "training": {
+        "title": "Corporate Training & Workshops",
+        "description": "Designing and delivering specialized training workshops in digital transformation and AI."
+      }
+    }
+  },
+  "home": {
+    "servicesPreview": "What I Do",
+    "cta": {
+      "title": "Is your organization ready for real digital transformation?",
+      "subtitle": "Let's talk about your organization's challenges and opportunities.",
+      "button": "Get in Touch"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Digital Transformation Architect — I Understand & I Build",
+    "story": "My career started with writing code and evolved all the way to running companies as CEO. This unique experience allows me to speak both the language of technology and the language of business. I believe real digital transformation doesn't happen with slides and consulting alone — it needs someone who designs the strategy and ensures its execution.",
+    "timeline": {
+      "title": "Career Path",
+      "developer": "Software Developer",
+      "techLead": "Tech Lead",
+      "manager": "Technology Director",
+      "ceo": "CEO",
+      "consultant": "Digital Transformation Architect & Consultant"
+    },
+    "skills": {
+      "title": "Key Skills",
+      "items": ["Digital Transformation", "Artificial Intelligence", "Process Management", "Business Intelligence", "Data Governance", "Project Management", "Product Design", "Organizational Leadership"]
+    }
+  },
+  "articles": {
+    "title": "Articles",
+    "subtitle": "My writings and notes on digital transformation, AI, and management",
+    "comingSoon": "Articles coming soon."
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Get in touch for consulting or collaboration",
+    "form": {
+      "name": "Full Name",
+      "company": "Organization Name",
+      "email": "Email",
+      "service": "Service of Interest",
+      "selectService": "Select a service",
+      "message": "Your Message",
+      "submit": "Send Message"
+    },
+    "info": {
+      "title": "Contact Info",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "locationValue": "Tehran, Iran"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "name": "Shahin Mirzaei",
+    "tagline": "Digital Transformation Architect"
+  }
+}
