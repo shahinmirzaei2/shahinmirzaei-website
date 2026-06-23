@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "/", key: "home" },
@@ -21,21 +22,26 @@ export default function Navbar() {
   const otherLocale = locale === "fa" ? "en" : "fa";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E5E7EB] bg-offwhite/95 backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-bold text-navy">
-          {locale === "fa" ? "شاهین میرزایی" : "Shahin Mirzaei"}
+    <header className="sticky top-0 z-50 border-b border-black/[0.04] bg-white/80 backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-navy text-xs font-bold text-white">
+            {locale === "fa" ? "ش" : "S"}
+          </div>
+          <span className="text-base font-bold text-navy">
+            {locale === "fa" ? "شاهین میرزایی" : "Shahin Mirzaei"}
+          </span>
         </Link>
 
-        <ul className="hidden gap-8 md:flex">
+        <ul className="hidden gap-1 md:flex">
           {navLinks.map(({ href, key }) => (
             <li key={key}>
               <Link
                 href={href}
-                className={`text-sm transition-colors hover:text-steel ${
+                className={`rounded-lg px-3.5 py-2 text-sm transition-colors ${
                   pathname === href
-                    ? "font-semibold text-steel"
-                    : "text-slate"
+                    ? "bg-navy/[0.04] font-semibold text-navy"
+                    : "text-[#6B7280] hover:bg-navy/[0.03] hover:text-navy"
                 }`}
               >
                 {t(key)}
@@ -44,13 +50,19 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             href={pathname}
             locale={otherLocale}
-            className="rounded-md border border-navy/10 px-3 py-1 text-xs font-medium text-slate transition-colors hover:border-steel hover:text-steel"
+            className="rounded-lg border border-[#E5E7EB] px-3 py-1.5 text-xs font-semibold text-[#6B7280] transition-colors hover:border-navy/20 hover:text-navy"
           >
             {locale === "fa" ? "EN" : "FA"}
+          </Link>
+          <Link
+            href="/contact"
+            className="rounded-lg bg-navy px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-navy/90"
+          >
+            {locale === "fa" ? "مشاوره" : "Consult"}
           </Link>
         </div>
 
@@ -59,26 +71,20 @@ export default function Navbar() {
           className="text-navy md:hidden"
           aria-label="Toggle menu"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-            {open ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            )}
-          </svg>
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </nav>
 
       {open && (
-        <div className="border-t border-[#E5E7EB] px-6 pb-4 md:hidden">
-          <ul className="flex flex-col gap-3 py-3">
+        <div className="border-t border-black/[0.04] px-6 pb-5 md:hidden">
+          <ul className="flex flex-col gap-1 py-3">
             {navLinks.map(({ href, key }) => (
               <li key={key}>
                 <Link
                   href={href}
                   onClick={() => setOpen(false)}
-                  className={`block text-sm ${
-                    pathname === href ? "font-semibold text-steel" : "text-slate"
+                  className={`block rounded-lg px-3 py-2.5 text-sm ${
+                    pathname === href ? "bg-navy/[0.04] font-semibold text-navy" : "text-[#6B7280]"
                   }`}
                 >
                   {t(key)}
@@ -86,13 +92,11 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <Link
-            href={pathname}
-            locale={otherLocale}
-            className="text-sm font-medium text-slate hover:text-steel"
-          >
-            {locale === "fa" ? "English" : "فارسی"}
-          </Link>
+          <div className="flex items-center gap-3 border-t border-black/[0.04] pt-3">
+            <Link href={pathname} locale={otherLocale} className="text-sm font-medium text-[#6B7280]">
+              {locale === "fa" ? "English" : "فارسی"}
+            </Link>
+          </div>
         </div>
       )}
     </header>

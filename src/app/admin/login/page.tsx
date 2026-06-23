@@ -21,7 +21,8 @@ export default function AdminLoginPage() {
     });
 
     if (res.ok) {
-      router.push("/admin/articles");
+      window.location.href = "/admin/articles";
+      return;
     } else {
       setError("رمز عبور اشتباه است");
     }

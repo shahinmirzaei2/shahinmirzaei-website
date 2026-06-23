@@ -1,48 +1,68 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import AdminShell from "@/components/AdminShell";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import type { NewsItem } from "@/lib/news";
 
 export default function AdminNewsPage() {
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/admin/news")
       .then((res) => {
-        if (res.status === 401) { router.push("/admin/login"); return []; }
+        if (res.status === 401) {
+          window.location.href = "/admin/login";
+          return [];
+        }
         return res.json();
       })
-      .then(setItems)
+      .then((data) => {
+        if (data) setItems(data);
+      })
       .finally(() => setLoading(false));
-  }, [router]);
+  }, []);
 
   async function handleDelete(slug: string) {
     if (!confirm("آیا از حذف این خبر مطمئن هستید؟")) return;
-    await fetch(`/api/admin/news/${slug}`, { method: "DELETE" });
-    setItems((prev) => prev.filter((n) => n.slug !== slug));
+    const res = await fetch(`/api/admin/news/${slug}`, { method: "DELETE" });
+    if (res.ok) {
+      setItems((prev) => prev.filter((n) => n.slug !== slug));
+    }
   }
 
   return (
     <AdminShell>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">اخبار</h1>
-        <Link href="/admin/news/new" className="rounded-lg bg-steel px-5 py-2.5 text-sm font-semibold text-white hover:bg-steel/80">
-          + خبر جدید
-        </Link>
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-navy">اخبار</h1>
+        <a
+          href="/admin/news/new"
+          className="inline-flex items-center gap-2 rounded-lg bg-steel px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-steel/85"
+        >
+          <Plus className="h-4 w-4" />
+          خبر جدید
+        </a>
       </div>
 
       {loading ? (
-        <p className="mt-8 text-[#6B7280]">در حال بارگذاری...</p>
+        <div className="rounded-xl border border-[#E5E7EB] bg-white p-12 text-center">
+          <p className="text-[#6B7280]">در حال بارگذاری...</p>
+        </div>
       ) : items.length === 0 ? (
-        <p className="mt-8 text-[#6B7280]">هنوز خبری ثبت نشده.</p>
+        <div className="rounded-xl border border-dashed border-[#D1D5DB] bg-white p-16 text-center">
+          <p className="text-lg font-medium text-navy">هنوز خبری ثبت نشده</p>
+          <p className="mt-2 text-sm text-[#6B7280]">برای شروع، یک خبر جدید بسازید</p>
+          <a
+            href="/admin/news/new"
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-steel px-6 py-3 text-sm font-bold text-white hover:bg-steel/85"
+          >
+            <Plus className="h-4 w-4" />
+            ساخت اولین خبر
+          </a>
+        </div>
       ) : (
-        <div className="mt-6 overflow-hidden rounded-xl border border-[#E5E7EB] bg-white">
+        <div className="overflow-hidden rounded-xl border border-[#E5E7EB] bg-white">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-[#E5E7EB] bg-navy/[0.02]">
@@ -61,7 +81,7 @@ export default function AdminNewsPage() {
                     {n.coverImage ? (
                       <img src={n.coverImage} alt="" className="h-14 w-14 rounded-lg object-cover" />
                     ) : (
-                      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-navy/5 text-xs text-muted">—</div>
+                      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-navy/5 text-xs text-[#9CA3AF]">—</div>
                     )}
                   </td>
                   <td className="px-4 py-3 font-medium text-navy">{n.titleFa}</td>
@@ -78,9 +98,9 @@ export default function AdminNewsPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2">
-                      <Link href={`/admin/news/edit/${n.slug}`} className="rounded-lg p-1.5 text-slate hover:bg-navy/5 hover:text-steel">
+                      <a href={`/admin/news/edit/${n.slug}`} className="rounded-lg p-1.5 text-slate hover:bg-navy/5 hover:text-steel">
                         <Pencil className="h-4 w-4" />
-                      </Link>
+                      </a>
                       <button onClick={() => handleDelete(n.slug)} className="rounded-lg p-1.5 text-slate hover:bg-red-50 hover:text-red-500">
                         <Trash2 className="h-4 w-4" />
                       </button>

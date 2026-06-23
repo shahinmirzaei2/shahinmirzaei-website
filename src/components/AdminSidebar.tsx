@@ -1,22 +1,21 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Home, FileText, Newspaper, LogOut } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Home, FileText, Newspaper, Settings, LogOut } from "lucide-react";
 
 const MENU = [
-  { href: "/admin", label: "داشبورد", icon: Home },
-  { href: "/admin/articles", label: "مقالات", icon: FileText },
-  { href: "/admin/news", label: "اخبار", icon: Newspaper },
+  { href: "/admin", label: "داشبورد", icon: Home, exact: true },
+  { href: "/admin/articles", label: "مقالات", icon: FileText, exact: false },
+  { href: "/admin/news", label: "اخبار", icon: Newspaper, exact: false },
+  { href: "/admin/settings", label: "تنظیمات", icon: Settings, exact: true },
 ] as const;
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
 
   function handleLogout() {
     document.cookie = "admin_token=; path=/; max-age=0";
-    router.push("/admin/login");
+    window.location.href = "/admin/login";
   }
 
   return (
@@ -27,21 +26,21 @@ export default function AdminSidebar() {
 
       <nav className="flex-1 px-3 py-4">
         <ul className="space-y-1">
-          {MENU.map(({ href, label, icon: Icon }) => {
-            const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
+          {MENU.map(({ href, label, icon: Icon, exact }) => {
+            const active = exact ? pathname === href : pathname.startsWith(href);
             return (
               <li key={href}>
-                <Link
+                <a
                   href={href}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
                     active
                       ? "bg-steel text-white"
-                      : "text-muted hover:bg-white/5 hover:text-white"
+                      : "text-white/50 hover:bg-white/5 hover:text-white"
                   }`}
                 >
-                  <Icon className="h-4.5 w-4.5" />
+                  <Icon className="h-[18px] w-[18px]" />
                   {label}
-                </Link>
+                </a>
               </li>
             );
           })}
@@ -51,9 +50,9 @@ export default function AdminSidebar() {
       <div className="border-t border-white/10 px-3 py-4">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted transition-colors hover:bg-white/5 hover:text-white"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/50 transition-colors hover:bg-white/5 hover:text-white"
         >
-          <LogOut className="h-4.5 w-4.5" />
+          <LogOut className="h-[18px] w-[18px]" />
           خروج
         </button>
       </div>

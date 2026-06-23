@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { SingleImageUpload, GalleryUpload } from "./ImageUpload";
 
@@ -29,7 +28,6 @@ interface NewsFormData {
 }
 
 export default function NewsForm({ initial }: { initial?: NewsFormData }) {
-  const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<NewsFormData>(
     initial || {
@@ -68,8 +66,8 @@ export default function NewsForm({ initial }: { initial?: NewsFormData }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    if (res.status === 401) { router.push("/admin/login"); return; }
-    if (res.ok) router.push("/admin/news");
+    if (res.status === 401) { window.location.href = "/admin/login"; return; }
+    if (res.ok) { alert("خبر با موفقیت ذخیره شد"); window.location.href = "/admin/news"; return; }
     setSaving(false);
   }
 
@@ -155,9 +153,9 @@ export default function NewsForm({ initial }: { initial?: NewsFormData }) {
         <button type="submit" disabled={saving} className="rounded-lg bg-steel px-8 py-3 text-sm font-semibold text-white hover:bg-steel/80 disabled:opacity-50">
           {saving ? "در حال ذخیره..." : "ذخیره خبر"}
         </button>
-        <button type="button" onClick={() => router.push("/admin/news")} className="rounded-lg border border-[#E5E7EB] px-8 py-3 text-sm text-slate hover:bg-navy/5">
+        <a href="/admin/news" className="rounded-lg border border-[#E5E7EB] px-8 py-3 text-sm text-slate hover:bg-navy/5">
           انصراف
-        </button>
+        </a>
       </div>
     </form>
   );

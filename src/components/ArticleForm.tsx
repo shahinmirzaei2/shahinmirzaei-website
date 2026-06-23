@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { SingleImageUpload, GalleryUpload } from "./ImageUpload";
 
@@ -33,7 +32,6 @@ interface ArticleFormData {
 }
 
 export default function ArticleForm({ initial }: { initial?: ArticleFormData }) {
-  const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<ArticleFormData>(
     initial || {
@@ -74,8 +72,8 @@ export default function ArticleForm({ initial }: { initial?: ArticleFormData }) 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    if (res.status === 401) { router.push("/admin/login"); return; }
-    if (res.ok) router.push("/admin/articles");
+    if (res.status === 401) { window.location.href = "/admin/login"; return; }
+    if (res.ok) { alert("مقاله با موفقیت ذخیره شد"); window.location.href = "/admin/articles"; return; }
     setSaving(false);
   }
 
@@ -187,9 +185,9 @@ export default function ArticleForm({ initial }: { initial?: ArticleFormData }) 
         <button type="submit" disabled={saving} className="rounded-lg bg-steel px-8 py-3 text-sm font-semibold text-white hover:bg-steel/80 disabled:opacity-50">
           {saving ? "در حال ذخیره..." : "ذخیره مقاله"}
         </button>
-        <button type="button" onClick={() => router.push("/admin/articles")} className="rounded-lg border border-[#E5E7EB] px-8 py-3 text-sm text-slate hover:bg-navy/5">
+        <a href="/admin/articles" className="rounded-lg border border-[#E5E7EB] px-8 py-3 text-sm text-slate hover:bg-navy/5">
           انصراف
-        </button>
+        </a>
       </div>
     </form>
   );
